@@ -1,0 +1,26 @@
+{
+  "vehicle_groups": [
+    {
+      "group_name": "Bus",
+      "vehicles": [
+        { "id": "bus001", "name": "School Bus 1", "status": "Moving", "latitude": 28.6139, "longitude": 77.2090, "driver": "John Doe", "speed": "45 km/h" },
+        { "id": "bus002", "name": "City Bus 5", "status": "Stopped", "latitude": 28.6150, "longitude": 77.2100, "driver": "Jane Smith", "speed": "0 km/h" },
+        { "id": "bus003", "name": "Tourist Bus 7", "status": "Idle", "latitude": 28.6160, "longitude": 77.2110, "driver": "Peter Jones", "speed": "0 km/h" }
+      ]
+    },
+    {
+      "group_name": "Trucks",
+      "vehicles": [
+        { "id": "truck001", "name": "Cargo Truck A", "status": "Idle", "latitude": 28.6170, "longitude": 77.2120, "driver": "Sam Wilson", "speed": "0 km/h" },
+        { "id": "truck002", "name": "Delivery Truck B", "status": "Moving", "latitude": 28.6180, "longitude": 77.2130, "driver": "Bucky Barnes", "speed": "60 km/h" }
+      ]
+    },
+    {
+      "group_name": "Cars",
+      "vehicles": [
+        { "id": "car001", "name": "Sedan-01", "status": "Moving", "latitude": 28.6190, "longitude": 77.2140, "driver": "Steve Rogers", "speed": "80 km/h" },
+        { "id": "car002", "name": "SUV-X5", "status": "Stopped", "latitude": 28.6200, "longitude": 77.2150, "driver": "Tony Stark", "speed": "0 km/h" }
+      ]
+    }
+  ]
+}

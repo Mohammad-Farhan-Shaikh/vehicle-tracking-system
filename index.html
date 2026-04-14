@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vehicle Tracking System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+    <header class="navbar">
+        <div class="navbar-left">
+            <h1 class="navbar-title">Vehicle Tracking System</h1>
+            <nav class="main-nav">
+                <a href="#" class="nav-item active">Vehicle Path</a>
+                <a href="#" class="nav-item">Landmark</a>
+                <a href="#" class="nav-item">Geofence</a>
+                <a href="#" class="nav-item">Reports</a>
+                <a href="#" class="nav-item">Setting</a>
+            </nav>
+        </div>
+        <div class="navbar-right">
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" placeholder="Search Vehicle..." />
+            </div>
+            <div class="nav-info-item">
+                <span>Zoom:</span>
+                <span id="zoom-level">13</span>
+            </div>
+            <div class="nav-info-item">
+                <i class="fa-solid fa-arrows-rotate"></i>
+                <span>60s</span>
+            </div>
+            <div class="nav-icon-item">
+                <i class="fa-regular fa-bell"></i>
+            </div>
+            <div class="user-profile">
+                <img src="https://i.pravatar.cc/30" alt="User" />
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-search">
+                    <input type="text" id="sidebar-search-input" placeholder="Find Vehicle by Name..." />
+                    <i class="fa-solid fa-magnifying-glass" id="search-icon"></i>
+                    <i class="fa-solid fa-xmark" id="search-clear-btn" style="display:none;"></i>
+                </div>
+                <div class="status-filters">
+                    <button class="filter-btn active">All</button>
+                    <button class="filter-btn">Moving</button>
+                    <button class="filter-btn">Idle</button>
+                    <button class="filter-btn">Stopped</button>
+                </div>
+            </div>
+            <div class="vehicle-group-container">
+                <div class="vehicle-group-header" id="master-group-header">
+                    <i class="fa-solid fa-chevron-right group-toggle-icon"></i>
+                    <input type="checkbox" id="master-checkbox">
+                    <label class="group-title">Vehicles</label>
+                    <span class="vehicle-count" id="total-vehicle-count">0</span>
+                </div>
+                <div class="sub-groups-wrapper" id="sub-groups-list">
+                </div>
+            </div>
+
+            <!-- Geofence Section -->
+            <div class="geofence-group-container">
+                <div class="vehicle-group-header" id="geofence-master-header">
+                    <i class="fa-solid fa-chevron-right group-toggle-icon"></i>
+                    <input type="checkbox" id="geofence-master-checkbox">
+                    <label class="group-title">Geofences</label>
+                    <span class="vehicle-count" id="total-geofence-count">0</span>
+                </div>
+                <div class="sub-groups-wrapper" id="geofence-list">
+                </div>
+            </div>
+        </aside>
+        
+        <button id="sidebar-toggler" class="sidebar-toggler-btn">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <script type="module" src="src/app.js"></script>
+</body>
+</html>

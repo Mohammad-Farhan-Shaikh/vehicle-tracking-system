@@ -1,0 +1,79 @@
+/* css/base.css */
+
+:root {
+  --primary-color: #6f42c1;
+  --primary-bg-light: #e9e3f5;
+  --text-dark: #212529;
+  --text-light: #495057;
+  --text-muted: #6c757d;
+  --background-light: #ffffff;
+  --background-grey: #f8f9fa;
+  --border-color: #dee2e6;
+  --status-moving: #28a745;
+  --status-idle: #ffc107;
+  --status-stopped: #dc3545;
+  --navbar-height: 60px;
+  --sidebar-width: 280px;
+  --spacing-sm: 8px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --border-radius: 5px;
+  --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  --transition-duration: 0.35s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-main);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--background-grey);
+}
+
+.main-content {
+  display: flex;
+  height: calc(100vh - var(--navbar-height));
+  position: relative;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #fff;
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #adb5bd;
+  border-radius: 3px;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+input[type="checkbox"]::before {
+  content: "";
+  width: 0.75em;
+  height: 0.75em;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em white;
+  transform-origin: bottom left;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}

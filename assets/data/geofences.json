@@ -1,0 +1,158 @@
+[
+  {
+    "id": "1",
+    "name": "Warehouse Zones",
+    "isshowgrpgf": 0,
+    "routes": [
+      {
+        "name": "Main Loading Bay",
+        "id": 1001,
+        "type": "gon",
+        "area": 0,
+        "points": [
+          { "lat": 23.5859, "lon": 58.4059 },
+          { "lat": 23.5865, "lon": 58.4059 },
+          { "lat": 23.5865, "lon": 58.4070 },
+          { "lat": 23.5859, "lon": 58.4070 }
+        ]
+      },
+      {
+        "name": "Storage Yard North",
+        "id": 1002,
+        "type": "gon",
+        "area": 0,
+        "points": [
+          { "lat": 23.5880, "lon": 58.4080 },
+          { "lat": 23.5890, "lon": 58.4085 },
+          { "lat": 23.5885, "lon": 58.4095 },
+          { "lat": 23.5875, "lon": 58.4090 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Restricted Areas",
+    "isshowgrpgf": 0,
+    "routes": [
+      {
+        "name": "High Voltage Plant",
+        "id": 2001,
+        "type": "gon",
+        "area": 0,
+        "points": [
+          { "lat": 23.6000, "lon": 58.4200 },
+          { "lat": 23.6010, "lon": 58.4200 },
+          { "lat": 23.6010, "lon": 58.4215 },
+          { "lat": 23.6005, "lon": 58.4220 },
+          { "lat": 23.6000, "lon": 58.4215 }
+        ]
+      },
+      {
+        "name": "Chemical Storage B",
+        "id": 2002,
+        "type": "gon",
+        "area": 0,
+        "points": [
+          { "lat": 23.6020, "lon": 58.4250 },
+          { "lat": 23.6030, "lon": 58.4250 },
+          { "lat": 23.6030, "lon": 58.4265 },
+          { "lat": 23.6020, "lon": 58.4265 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "City Checkpoints",
+    "isshowgrpgf": 0,
+    "routes": [
+      {
+        "name": "Mutrah Souq Entry",
+        "id": 3001,
+        "type": "gon",
+        "area": 0,
+        "points": [
+          { "lat": 23.6210, "lon": 58.5580 },
+          { "lat": 23.6215, "lon": 58.5585 },
+          { "lat": 23.6210, "lon": 58.5590 }
+        ]
+      },
+      {
+        "name": "Old Muscat Hub",
+        "id": 3002,
+        "type": "gon",
+        "area": 0,
+        "points": [
+          { "lat": 23.6140, "lon": 58.5850 },
+          { "lat": 23.6150, "lon": 58.5860 },
+          { "lat": 23.6160, "lon": 58.5870 },
+          { "lat": 23.6150, "lon": 58.5880 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "Roundabouts",
+    "isshowgrpgf": 0,
+    "routes": [
+      {
+        "name": "Al Nahayda-3 R/A",
+        "id": 3227,
+        "type": "gon",
+        "area": 0,
+        "points": [
+          { "lat": 21.39465, "lon": 57.08476 },
+          { "lat": 21.3937, "lon": 57.08504 },
+          { "lat": 21.39188, "lon": 57.08533 },
+          { "lat": 21.39361, "lon": 57.08639 }
+        ]
+      },
+      {
+        "name": "Awaifia-R/A",
+        "id": 3223,
+        "type": "gon",
+        "area": 0,
+        "points": [
+          { "lat": 22.36816, "lon": 56.8982 },
+          { "lat": 22.36751, "lon": 56.89759 },
+          { "lat": 22.36706, "lon": 56.89814 },
+          { "lat": 22.36765, "lon": 56.8988 }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "name": "Customer Terminals",
+    "isshowgrpgf": 0,
+    "routes": [
+      {
+        "name": "Port Sultan Qaboos",
+        "id": 5001,
+        "type": "gon",
+        "area": 0,
+        "points": [
+          { "lat": 23.6250, "lon": 58.5650 },
+          { "lat": 23.6280, "lon": 58.5670 },
+          { "lat": 23.6290, "lon": 58.5680 },
+          { "lat": 23.6260, "lon": 58.5690 }
+        ]
+      },
+      {
+        "name": "Airport Logistics Hub",
+        "id": 5002,
+        "type": "gon",
+        "area": 0,
+        "points": [
+          { "lat": 23.5950, "lon": 58.2850 },
+          { "lat": 23.5970, "lon": 58.2870 },
+          { "lat": 23.5980, "lon": 58.2890 },
+          { "lat": 23.5960, "lon": 58.2900 },
+          { "lat": 23.5940, "lon": 58.2880 }
+        ]
+      }
+    ]
+  }
+]
