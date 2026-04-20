@@ -27,3 +27,16 @@ export async function fetchGeofences() {
     throw error;
   }
 }
+
+export async function fetchLandmarks() {
+  try {
+    const response = await fetch("assets/data/landmarks.json");
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to fetch landmarks:", error);
+    throw error;
+  }
+}

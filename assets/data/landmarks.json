@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "name": "Main Landmarks",
+    "landmarks": [
+      {
+        "id": 101,
+        "name": "City Center Mall",
+        "lat": 23.5859,
+        "lon": 58.4059
+      },
+      {
+        "id": 102,
+        "name": "Central Hospital",
+        "lat": 23.5880,
+        "lon": 58.4080
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Fuel Stations",
+    "landmarks": [
+      {
+        "id": 201,
+        "name": "Shell Express",
+        "lat": 23.6000,
+        "lon": 58.4200
+      },
+      {
+        "id": 202,
+        "name": "OmanOil Mutrah",
+        "lat": 23.6210,
+        "lon": 58.5580
+      }
+    ]
+  }
+]
