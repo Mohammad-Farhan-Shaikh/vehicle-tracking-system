@@ -4,6 +4,8 @@ import {
   panToMarker,
   isMarkerActive,
   clearAllMarkers,
+  addGeofence,
+  removeGeofence,
 } from "./map.js";
 import { fetchVehicles, fetchGeofences, fetchLandmarks } from "../api/dataApi.js";
 import { debounce, toggleCollapse } from "../utils/helpers.js";
@@ -15,6 +17,7 @@ import { debounce, toggleCollapse } from "../utils/helpers.js";
  */
 export async function setupSidebar(map) {
   const vehicleDataMap = new Map();
+  const geofenceDataMap = new Map();
   const state = {
     groups: [],
     allVehicles: [],
@@ -67,6 +70,13 @@ export async function setupSidebar(map) {
       state.allVehicles.forEach((v) => vehicleDataMap.set(v.id, v));
 
       state.geofenceGroups = geofenceData;
+      state.geofenceGroups.forEach(group => {
+        group.routes.forEach(route => {
+          // Store parent group name inside the route object for the map popup
+          const geofenceWithGroup = { ...route, groupName: group.name };
+          geofenceDataMap.set(route.id.toString(), geofenceWithGroup);
+        });
+      });
       state.landmarkGroups = landmarkData;
 
       updateSidebarView(true);
@@ -507,23 +517,31 @@ export async function setupSidebar(map) {
 
   // --- Geofence Checkbox Helpers ---
   const handleGeofenceToggle = (checkbox) => {
+    const { geofenceId } = checkbox.dataset;
+    const geofence = geofenceDataMap.get(geofenceId);
     const groupName = checkbox.closest(".geofence-group")?.querySelector(".geofence-group-checkbox")?.dataset.groupName;
-    console.log("Geofence toggle:", checkbox.dataset.geofenceId);
+    
+    if (geofence) {
+      checkbox.checked ? addGeofence(geofence) : removeGeofence(geofenceId);
+    }
+    
     if (groupName) syncGeofenceGroupCheckbox(groupName);
   };
 
   const handleGeofenceGroupToggle = (groupCheckbox) => {
     const groupName = groupCheckbox.dataset.groupName;
     const isChecked = groupCheckbox.checked;
-    const checkboxes = document.querySelectorAll(
-      `.geofence-group-checkbox[data-group-name="${groupName}"]`
-    );
-    // Find all items in this group
+    
     const itemCheckboxes = groupCheckbox.closest(".geofence-group")?.querySelectorAll(".geofence-checkbox");
     
     itemCheckboxes?.forEach((cb) => {
-      cb.checked = isChecked;
-      console.log("Geofence item toggle (group):", cb.dataset.geofenceId);
+      if (cb.checked !== isChecked) {
+        cb.checked = isChecked;
+        const geofence = geofenceDataMap.get(cb.dataset.geofenceId);
+        if (geofence) {
+          isChecked ? addGeofence(geofence) : removeGeofence(geofence.id.toString());
+        }
+      }
     });
     updateGeofenceMasterState();
   };

@@ -65,3 +65,51 @@
 .leaflet-tooltip-bottom.vehicle-label::before {
   display: none;
 }
+
+/* Geofence Popup Styling */
+.geofence-popup {
+  min-width: 180px;
+  padding: 5px 0;
+}
+
+.geofence-popup .popup-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  color: var(--primary-color);
+}
+
+.geofence-popup .popup-header i {
+  font-size: 16px;
+}
+
+.geofence-popup .popup-header strong {
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.geofence-popup .popup-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.geofence-popup .popup-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.geofence-popup .label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.geofence-popup .value {
+  color: var(--text-dark);
+  font-weight: 600;
+}
+

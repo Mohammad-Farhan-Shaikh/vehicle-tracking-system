@@ -13,6 +13,7 @@ const STATUS_COLORS = {
 let map;
 let markerClusterGroup;
 const activeMarkers = new Map();
+const activeGeofences = new Map();
 
 /**
  * Initializes the Leaflet map with OpenStreetMap tiles and marker clustering.
@@ -148,3 +149,65 @@ export function clearAllMarkers() {
   markerClusterGroup.clearLayers();
   activeMarkers.clear();
 }
+ 
+/**
+ * Adds a geofence (polygon) to the map.
+ * @param {Object} geofenceData - Geofence data with points and metadata.
+ */
+export function addGeofence(geofenceData) {
+  const id = geofenceData.id.toString();
+  if (activeGeofences.has(id)) return;
+
+  const latLngs = geofenceData.points.map((p) => [p.lat, p.lon]);
+  const polygon = L.polygon(latLngs, {
+    color: "#3388ff",
+    fillColor: "#3388ff",
+    fillOpacity: 0.2,
+    weight: 2,
+  }).addTo(map);
+
+  // Add Popup with details
+  const popupContent = `
+    <div class="geofence-popup">
+      <div class="popup-header">
+        <i class="fa-solid fa-draw-polygon"></i>
+        <strong>${geofenceData.name}</strong>
+      </div>
+      <div class="popup-body">
+        <div class="popup-row">
+          <span class="label">Group:</span>
+          <span class="value">${geofenceData.groupName || "N/A"}</span>
+        </div>
+        <div class="popup-row">
+          <span class="label">Area:</span>
+          <span class="value">${geofenceData.area || 0} sq m</span>
+        </div>
+        <div class="popup-row">
+          <span class="label">Type:</span>
+          <span class="value">Polygon</span>
+        </div>
+      </div>
+    </div>
+  `;
+  polygon.bindPopup(popupContent);
+
+  activeGeofences.set(id, polygon);
+  
+  // Zoom/Pan map to fit the geofence
+  map.fitBounds(polygon.getBounds());
+}
+
+
+/**
+ * Removes a geofence from the map.
+ * @param {string} geofenceId - Unique ID of the geofence.
+ */
+export function removeGeofence(geofenceId) {
+  const id = geofenceId.toString();
+  const polygon = activeGeofences.get(id);
+  if (polygon) {
+    map.removeLayer(polygon);
+    activeGeofences.delete(id);
+  }
+}
+
