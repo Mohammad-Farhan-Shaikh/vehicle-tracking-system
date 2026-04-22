@@ -2,9 +2,10 @@
  * Main Application Entry Point
  * Orchestrates the initialization of all components.
  */
-import { initializeMap } from "./components/map.js";
+import { initializeMap, updateVehicleMarker } from "./components/map.js";
 import { setupSidebar } from "./components/sidebar.js";
 import { setupNavbar } from "./components/navbar.js";
+import { VehicleSimulator } from "./utils/simulator.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   // 1. Initialize the Base Map
@@ -13,7 +14,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 2. Initialize Components
   setupNavbar(map);
-  await setupSidebar(map);
+  const state = await setupSidebar(map);
+
+  // 3. Initialize Live Movement Simulation
+  if (state && state.allVehicles) {
+    const simulator = new VehicleSimulator(state.allVehicles);
+    simulator.start((updatedVehicle) => {
+      updateVehicleMarker(updatedVehicle);
+    }, 1000); // Update every 1 second
+  }
 
   console.log("Vehicle Tracking System Initialized Successfully");
 });

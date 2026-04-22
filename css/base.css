@@ -1,25 +1,65 @@
 /* css/base.css */
 
 :root {
-  --primary-color: #6f42c1;
-  --primary-bg-light: #e9e3f5;
-  --text-dark: #212529;
-  --text-light: #495057;
-  --text-muted: #6c757d;
-  --background-light: #ffffff;
-  --background-grey: #f8f9fa;
-  --border-color: #dee2e6;
-  --status-moving: #28a745;
-  --status-idle: #ffc107;
-  --status-stopped: #dc3545;
-  --navbar-height: 60px;
-  --sidebar-width: 280px;
+  /* Uber Core Colors */
+  --uber-black: #000000;
+  --uber-white: #ffffff;
+  --uber-hover-gray: #e2e2e2;
+  --uber-hover-light: #f3f3f3;
+  --uber-chip-gray: #efefef;
+  --uber-body-gray: #4b4b4b;
+  --uber-muted-gray: #afafaf;
+
+  /* Modern Indigo (Accent) */
+  --primary-color: #6366f1; 
+  --primary-light: #818cf8;
+  --primary-dark: #4f46e5;
+  --primary-bg-light: #f5f7ff;
+  
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+
+  --text-dark: var(--uber-black);
+  --text-light: var(--uber-body-gray);
+  --text-muted: var(--uber-muted-gray);
+  
+  --background-light: var(--uber-white);
+  --background-grey: #f6f6f6;
+  --border-color: #eeeeee;
+  --surface-color: var(--uber-white);
+  
+  --status-moving: var(--success-color);
+  --status-idle: var(--warning-color);
+  --status-stopped: var(--danger-color);
+  
+  --navbar-height: 64px;
+  --sidebar-width: 320px;
+  --spacing-xs: 4px;
   --spacing-sm: 8px;
-  --spacing-md: 12px;
-  --spacing-lg: 16px;
-  --border-radius: 5px;
-  --font-main: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  --transition-duration: 0.35s;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+  --border-radius-pill: 999px;
+
+  --font-main: "Inter", system-ui, -apple-system, sans-serif;
+  --transition-fast: 0.15s;
+  --transition-normal: 0.25s;
+
+  /* Uber Shadow System */
+  --shadow-lvl1: rgba(0, 0, 0, 0.12) 0px 4px 16px 0px;
+  --shadow-lvl2: rgba(0, 0, 0, 0.16) 0px 4px 16px 0px;
+  --shadow-lvl3: rgba(0, 0, 0, 0.16) 0px 2px 8px 0px;
+  --shadow-pressed: rgba(0, 0, 0, 0.08) inset 0px 0px 0px 999px;
+  
+  /* Fallbacks */
+  --shadow-sm: var(--shadow-lvl3);
+  --shadow-md: var(--shadow-lvl1);
+  --shadow-lg: var(--shadow-lvl2);
 }
 
 * {
@@ -48,24 +88,25 @@ input[type="checkbox"] {
   -webkit-appearance: none;
   background-color: #fff;
   margin: 0;
-  width: 16px;
-  height: 16px;
-  border: 1px solid #adb5bd;
-  border-radius: 3px;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #d1d5db;
+  border-radius: var(--border-radius-sm);
   display: grid;
   place-content: center;
   cursor: pointer;
   flex-shrink: 0;
+  transition: all var(--transition-fast) ease;
 }
 
 input[type="checkbox"]::before {
   content: "";
-  width: 0.75em;
-  height: 0.75em;
+  width: 0.65em;
+  height: 0.65em;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
   box-shadow: inset 1em 1em white;
-  transform-origin: bottom left;
+  transform-origin: center;
   clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
 }
 
@@ -76,4 +117,24 @@ input[type="checkbox"]:checked {
 
 input[type="checkbox"]:checked::before {
   transform: scale(1);
+}
+
+input[type="checkbox"]:indeterminate {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+input[type="checkbox"]:indeterminate::before {
+  content: "";
+  width: 10px;
+  height: 2px;
+  transform: scale(1);
+  background-color: white;
+  box-shadow: none;
+  clip-path: none;
+}
+
+input[type="checkbox"]:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }

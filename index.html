@@ -59,19 +59,22 @@
                     <button class="filter-btn">Stopped</button>
                 </div>
             </div>
-            <div class="vehicle-group-container">
-                <div class="vehicle-group-header" id="master-group-header">
-                    <i class="fa-solid fa-chevron-right group-toggle-icon"></i>
-                    <input type="checkbox" id="master-checkbox">
-                    <label class="group-title">Vehicles</label>
-                    <span class="vehicle-count" id="total-vehicle-count">0</span>
-                </div>
-                <div class="sub-groups-wrapper" id="sub-groups-list">
+            <div class="sidebar-content">
+                <!-- Vehicle Section -->
+                <div class="sidebar-section">
+                    <div class="vehicle-group-header master-section-header" id="master-group-header">
+                        <i class="fa-solid fa-chevron-right group-toggle-icon"></i>
+                        <input type="checkbox" id="master-checkbox">
+                        <label class="group-title">Vehicles</label>
+                        <span class="vehicle-count" id="total-vehicle-count">0</span>
+                    </div>
+                    <div class="sub-groups-wrapper" id="sub-groups-list">
+                    </div>
                 </div>
 
                 <!-- Geofence Section -->
-                <div class="geofence-group-container">
-                    <div class="vehicle-group-header" id="geofence-master-header">
+                <div class="sidebar-section">
+                    <div class="vehicle-group-header master-section-header" id="geofence-master-header">
                         <i class="fa-solid fa-chevron-right group-toggle-icon"></i>
                         <input type="checkbox" id="geofence-master-checkbox">
                         <label class="group-title">Geofences</label>
@@ -82,8 +85,8 @@
                 </div>
 
                 <!-- Landmark Section -->
-                <div class="landmark-group-container">
-                    <div class="vehicle-group-header" id="landmark-master-header">
+                <div class="sidebar-section">
+                    <div class="vehicle-group-header master-section-header" id="landmark-master-header">
                         <i class="fa-solid fa-chevron-right group-toggle-icon"></i>
                         <input type="checkbox" id="landmark-master-checkbox">
                         <label class="group-title">Landmarks</label>

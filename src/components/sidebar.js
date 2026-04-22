@@ -6,6 +6,8 @@ import {
   clearAllMarkers,
   addGeofence,
   removeGeofence,
+  addLandmark,
+  removeLandmark,
 } from "./map.js";
 import { fetchVehicles, fetchGeofences, fetchLandmarks } from "../api/dataApi.js";
 import { debounce, toggleCollapse } from "../utils/helpers.js";
@@ -18,6 +20,7 @@ import { debounce, toggleCollapse } from "../utils/helpers.js";
 export async function setupSidebar(map) {
   const vehicleDataMap = new Map();
   const geofenceDataMap = new Map();
+  const landmarkDataMap = new Map();
   const state = {
     groups: [],
     allVehicles: [],
@@ -28,20 +31,20 @@ export async function setupSidebar(map) {
   };
 
   const elements = {
+    // ... Main scrollable content ...
+    sidebarContent: document.querySelector(".sidebar-content"),
+    
     // ... Existing vehicle elements ...
-    container: document.querySelector(".vehicle-group-container"),
     subGroupsList: document.getElementById("sub-groups-list"),
     totalCountSpan: document.getElementById("total-vehicle-count"),
     masterCheckbox: document.getElementById("master-checkbox"),
 
     // ... New Geofence elements ...
-    geofenceContainer: document.querySelector(".geofence-group-container"),
     geofenceSubList: document.getElementById("geofence-list"),
     totalGeofenceSpan: document.getElementById("total-geofence-count"),
     geofenceMasterCheckbox: document.getElementById("geofence-master-checkbox"),
 
     // ... New Landmark elements ...
-    landmarkContainer: document.querySelector(".landmark-group-container"),
     landmarkSubList: document.getElementById("landmark-list"),
     totalLandmarkSpan: document.getElementById("total-landmark-count"),
     landmarkMasterCheckbox: document.getElementById("landmark-master-checkbox"),
@@ -78,6 +81,12 @@ export async function setupSidebar(map) {
         });
       });
       state.landmarkGroups = landmarkData;
+      state.landmarkGroups.forEach(group => {
+        group.landmarks.forEach(landmark => {
+          const landmarkWithGroup = { ...landmark, groupName: group.name };
+          landmarkDataMap.set(landmark.id.toString(), landmarkWithGroup);
+        });
+      });
 
       updateSidebarView(true);
       renderGeofenceList(state.geofenceGroups);
@@ -275,14 +284,13 @@ export async function setupSidebar(map) {
    * Set up DOM event listeners.
    */
   const setupEventListeners = () => {
-    if (!elements.container) return;
-
-    // Click Delegation (Vehicles)
-    elements.container.addEventListener("click", (e) => {
-      const masterHeader = e.target.closest("#master-group-header");
+    // Click Delegation (Universal)
+    elements.sidebarContent?.addEventListener("click", (e) => {
+      // Toggle Expansion
+      const masterHeader = e.target.closest(".master-section-header");
       if (masterHeader && !e.target.matches("input")) {
         toggleCollapse(
-          elements.subGroupsList,
+          masterHeader.nextElementSibling,
           masterHeader.querySelector(".group-toggle-icon"),
         );
         return;
@@ -297,7 +305,8 @@ export async function setupSidebar(map) {
         return;
       }
 
-      const vehicleItem = e.target.closest(".vehicle-item");
+      // Vehicle Click
+      const vehicleItem = e.target.closest(".vehicle-item:not(.geofence-item):not(.landmark-item)");
       if (vehicleItem && !e.target.matches("input")) {
         const checkbox = vehicleItem.querySelector(".vehicle-checkbox");
         if (checkbox) {
@@ -305,30 +314,10 @@ export async function setupSidebar(map) {
           handleVehicleToggle(checkbox);
         }
         panToMarker(vehicleItem.dataset.vehicleId);
-      }
-    });
-
-    // Click Delegation (Geofences)
-    elements.geofenceContainer?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const masterHeader = e.target.closest("#geofence-master-header");
-      if (masterHeader && !e.target.matches("input")) {
-        toggleCollapse(
-          elements.geofenceSubList,
-          masterHeader.querySelector(".group-toggle-icon"),
-        );
         return;
       }
 
-      const subHeader = e.target.closest(".sub-group-header");
-      if (subHeader && !e.target.matches("input")) {
-        toggleCollapse(
-          subHeader.nextElementSibling,
-          subHeader.querySelector(".group-toggle-icon"),
-        );
-        return;
-      }
-
+      // Geofence Click
       const geofenceItem = e.target.closest(".geofence-item");
       if (geofenceItem && !e.target.matches("input")) {
         const checkbox = geofenceItem.querySelector(".geofence-checkbox");
@@ -336,30 +325,10 @@ export async function setupSidebar(map) {
           checkbox.checked = !checkbox.checked;
           handleGeofenceToggle(checkbox);
         }
-      }
-    });
-
-    // Click Delegation (Landmarks)
-    elements.landmarkContainer?.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const masterHeader = e.target.closest("#landmark-master-header");
-      if (masterHeader && !e.target.matches("input")) {
-        toggleCollapse(
-          elements.landmarkSubList,
-          masterHeader.querySelector(".group-toggle-icon"),
-        );
         return;
       }
 
-      const subHeader = e.target.closest(".sub-group-header");
-      if (subHeader && !e.target.matches("input")) {
-        toggleCollapse(
-          subHeader.nextElementSibling,
-          subHeader.querySelector(".group-toggle-icon"),
-        );
-        return;
-      }
-
+      // Landmark Click
       const landmarkItem = e.target.closest(".landmark-item");
       if (landmarkItem && !e.target.matches("input")) {
         const checkbox = landmarkItem.querySelector(".landmark-checkbox");
@@ -367,11 +336,13 @@ export async function setupSidebar(map) {
           checkbox.checked = !checkbox.checked;
           handleLandmarkToggle(checkbox);
         }
+        return;
       }
     });
 
-    // Checkbox State (Vehicles)
-    elements.container.addEventListener("change", (e) => {
+    // Checkbox Change Delegation
+    elements.sidebarContent?.addEventListener("change", (e) => {
+      // Vehicle Checkboxes
       if (e.target.matches(".vehicle-checkbox")) {
         handleVehicleToggle(e.target);
       } else if (e.target.matches(".group-checkbox")) {
@@ -379,22 +350,18 @@ export async function setupSidebar(map) {
       } else if (e.target.id === "master-checkbox") {
         handleMasterToggle(e.target.checked);
       }
-    });
-
-    // Checkbox State (Geofences)
-    elements.geofenceContainer?.addEventListener("change", (e) => {
-      if (e.target.matches(".geofence-checkbox")) {
+      
+      // Geofence Checkboxes
+      else if (e.target.matches(".geofence-checkbox")) {
         handleGeofenceToggle(e.target);
       } else if (e.target.matches(".geofence-group-checkbox")) {
         handleGeofenceGroupToggle(e.target);
       } else if (e.target.id === "geofence-master-checkbox") {
         handleGeofenceMasterToggle(e.target.checked);
       }
-    });
-
-    // Checkbox State (Landmarks)
-    elements.landmarkContainer?.addEventListener("change", (e) => {
-      if (e.target.matches(".landmark-checkbox")) {
+      
+      // Landmark Checkboxes
+      else if (e.target.matches(".landmark-checkbox")) {
         handleLandmarkToggle(e.target);
       } else if (e.target.matches(".landmark-group-checkbox")) {
         handleLandmarkGroupToggle(e.target);
@@ -583,8 +550,14 @@ export async function setupSidebar(map) {
 
   // --- Landmark Checkbox Helpers ---
   const handleLandmarkToggle = (checkbox) => {
+    const landmarkId = checkbox.dataset.landmarkId;
+    const landmark = landmarkDataMap.get(landmarkId);
+    
+    if (landmark) {
+      checkbox.checked ? addLandmark(landmark) : removeLandmark(landmarkId);
+    }
+
     const groupName = checkbox.closest(".landmark-group")?.querySelector(".landmark-group-checkbox")?.dataset.groupName;
-    console.log("Landmark toggle:", checkbox.dataset.landmarkId);
     if (groupName) syncLandmarkGroupCheckbox(groupName);
   };
 
@@ -593,8 +566,13 @@ export async function setupSidebar(map) {
     const itemCheckboxes = groupCheckbox.closest(".landmark-group")?.querySelectorAll(".landmark-checkbox");
     
     itemCheckboxes?.forEach((cb) => {
-      cb.checked = isChecked;
-      console.log("Landmark item toggle (group):", cb.dataset.landmarkId);
+      if (cb.checked !== isChecked) {
+        cb.checked = isChecked;
+        const landmark = landmarkDataMap.get(cb.dataset.landmarkId);
+        if (landmark) {
+          isChecked ? addLandmark(landmark) : removeLandmark(landmark.id.toString());
+        }
+      }
     });
     updateLandmarkMasterState();
   };
@@ -602,10 +580,13 @@ export async function setupSidebar(map) {
   const handleLandmarkMasterToggle = (isChecked) => {
     const allGroupCheckboxes = document.querySelectorAll(".landmark-group-checkbox");
     allGroupCheckboxes.forEach((gcb) => {
-      gcb.checked = isChecked;
-      handleLandmarkGroupToggle(gcb);
+      if (gcb.checked !== isChecked) {
+        gcb.checked = isChecked;
+        handleLandmarkGroupToggle(gcb);
+      }
     });
   };
+
 
   const syncLandmarkGroupCheckbox = (groupName) => {
     const groupEl = document.querySelector(`.landmark-group-checkbox[data-group-name="${groupName}"]`)?.closest(".landmark-group");
@@ -658,7 +639,7 @@ export async function setupSidebar(map) {
         return `
           <li class="vehicle-item geofence-item" data-geofence-id="${route.id}">
             <input type="checkbox" class="geofence-checkbox" data-geofence-id="${route.id}">
-            <i class="fa-solid fa-draw-polygon" style="color: var(--primary-color); font-size: 12px;"></i>
+            <i class="fa-solid fa-draw-polygon item-icon"></i>
             <span class="vehicle-name">${route.name}</span>
           </li>
         `;
@@ -704,7 +685,7 @@ export async function setupSidebar(map) {
         return `
           <li class="vehicle-item landmark-item" data-landmark-id="${l.id}">
             <input type="checkbox" class="landmark-checkbox" data-landmark-id="${l.id}">
-            <i class="fa-solid fa-location-dot" style="color: var(--primary-color); font-size: 12px;"></i>
+            <i class="fa-solid fa-location-dot item-icon"></i>
             <span class="vehicle-name">${l.name}</span>
           </li>
         `;
@@ -728,5 +709,7 @@ export async function setupSidebar(map) {
 
   // Initialize
   setupEventListeners();
-  loadData();
+  await loadData();
+
+  return state;
 }

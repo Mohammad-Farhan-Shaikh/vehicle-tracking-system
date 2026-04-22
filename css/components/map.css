@@ -19,97 +19,162 @@
 
 /* Leaflet Zoom Control Customization */
 .leaflet-control-zoom {
-  border: 1px solid var(--border-color) !important;
-  border-radius: var(--border-radius) !important;
-  box-shadow: 0 1px 5px rgba(0,0,0,0.1) !important;
+  border: none !important;
+  border-radius: var(--border-radius-pill) !important;
+  box-shadow: var(--shadow-lvl3) !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
-  background-color: var(--background-light) !important;
-  color: var(--primary-color) !important;
-  width: 30px !important;
-  height: 30px !important;
-  line-height: 30px !important;
-  font-size: 1.2rem !important;
-  font-weight: bold !important;
+  background-color: var(--uber-white) !important;
+  color: var(--uber-black) !important;
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 36px !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  border: none !important;
+  transition: background-color var(--transition-fast) ease !important;
 }
 
 .leaflet-control-zoom-in:hover,
 .leaflet-control-zoom-out:hover {
-  background-color: var(--primary-bg-light) !important;
+  background-color: var(--uber-hover-light) !important;
 }
 
 .leaflet-control-zoom-in {
-  border-radius: 4px 4px 0 0 !important;
+  border-bottom: 1px solid var(--border-color) !important;
 }
 
-.leaflet-control-zoom-out {
-  border-radius: 0 0 4px 4px !important;
+/* Popup Overhaul */
+.leaflet-popup-content-wrapper {
+  border-radius: var(--border-radius-md) !important;
+  padding: 0 !important;
+  box-shadow: var(--shadow-lvl2) !important;
+  overflow: hidden;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  width: 240px !important;
+}
+
+.leaflet-popup-tip {
+  box-shadow: var(--shadow-lvl2) !important;
+}
+
+.vehicle-popup,
+.geofence-popup,
+.landmark-popup {
+  padding: 16px;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.popup-header i {
+  font-size: 18px;
+  color: var(--primary-color);
+}
+
+.popup-header strong {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--uber-black);
+}
+
+.popup-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.popup-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.popup-row .label {
+  color: var(--uber-muted-gray);
+  font-weight: 500;
+}
+
+.popup-row .value {
+  color: var(--uber-black);
+  font-weight: 600;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: var(--border-radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 /* Vehicle Label Styling on Map */
 .vehicle-label {
-  background: white !important;
-  border: 1px solid rgba(0,0,0,0.2) !important;
-  border-radius: 4px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
-  color: #333;
-  font-weight: 700;
-  font-size: 11px;
-  padding: 2px 6px !important;
+  background: var(--uber-black) !important;
+  border: none !important;
+  border-radius: var(--border-radius-pill) !important;
+  box-shadow: var(--shadow-lvl3) !important;
+  color: var(--uber-white) !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  padding: 4px 12px !important;
   white-space: nowrap;
 }
 
-/* Hide tooltip arrow */
-.leaflet-tooltip-bottom.vehicle-label::before {
-  display: none;
+.vehicle-label::before {
+  display: none !important;
 }
 
-/* Geofence Popup Styling */
-.geofence-popup {
-  min-width: 180px;
-  padding: 5px 0;
-}
-
-.geofence-popup .popup-header {
+/* Landmark Custom Icon Styling */
+.vehicle-custom-icon,
+.custom-landmark-icon {
   display: flex;
   align-items: center;
-  gap: 10px;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 8px;
-  margin-bottom: 8px;
-  color: var(--primary-color);
+  justify-content: center;
+  transition: transform 1s linear, opacity 0.3s ease; /* Smooth movement transition */
 }
 
-.geofence-popup .popup-header i {
+.vehicle-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s ease-in-out; /* Smooth rotation transition */
+}
+
+/* Landmark Marker Styling */
+.landmark-marker {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: var(--uber-white);
+  border: 2px solid var(--danger-color);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  box-shadow: var(--shadow-lvl3);
+}
+
+.landmark-marker i {
+  transform: rotate(45deg);
+  color: var(--danger-color);
   font-size: 16px;
 }
 
-.geofence-popup .popup-header strong {
-  font-size: 14px;
-  color: var(--text-dark);
-}
 
-.geofence-popup .popup-body {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.geofence-popup .popup-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-}
-
-.geofence-popup .label {
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.geofence-popup .value {
-  color: var(--text-dark);
-  font-weight: 600;
-}
 
