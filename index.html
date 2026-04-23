@@ -38,6 +38,12 @@
             <div class="nav-icon-item">
                 <i class="fa-regular fa-bell"></i>
             </div>
+            <div class="nav-icon-item theme-toggle-container">
+                <button id="theme-toggle" class="theme-toggle-btn" title="Toggle Dark/Light Mode">
+                    <i class="fa-regular fa-moon moon-icon"></i>
+                    <i class="fa-regular fa-sun sun-icon"></i>
+                </button>
+            </div>
             <div class="user-profile">
                 <img src="https://i.pravatar.cc/30" alt="User" />
             </div>
@@ -53,10 +59,10 @@
                     <i class="fa-solid fa-xmark" id="search-clear-btn" style="display:none;"></i>
                 </div>
                 <div class="status-filters">
-                    <button class="filter-btn active">All</button>
-                    <button class="filter-btn">Moving</button>
-                    <button class="filter-btn">Idle</button>
-                    <button class="filter-btn">Stopped</button>
+                    <button class="filter-btn active" data-filter="All">All <span class="status-count" id="count-all">0</span></button>
+                    <button class="filter-btn" data-filter="Moving">Moving <span class="status-count" id="count-moving">0</span></button>
+                    <button class="filter-btn" data-filter="Idle">Idle <span class="status-count" id="count-idle">0</span></button>
+                    <button class="filter-btn" data-filter="Stopped">Stopped <span class="status-count" id="count-stopped">0</span></button>
                 </div>
             </div>
             <div class="sidebar-content">

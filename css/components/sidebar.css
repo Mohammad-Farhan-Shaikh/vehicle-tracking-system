@@ -134,6 +134,31 @@
     box-shadow: var(--shadow-sm);
 }
 
+.status-count {
+    font-size: 10px;
+    background-color: var(--uber-chip-gray);
+    color: var(--uber-body-gray);
+    padding: 1px 6px;
+    border-radius: 10px;
+    margin-left: 4px;
+    transition: all var(--transition-fast) ease;
+}
+
+.filter-btn.active .status-count {
+    background-color: var(--primary-color);
+    color: #fff;
+}
+
+body.dark-theme .filter-btn.active {
+    background-color: var(--uber-black);
+    color: var(--uber-white);
+}
+
+body.dark-theme .status-count {
+    background-color: #333;
+    color: #eee;
+}
+
 /* Content Area */
 .sidebar-content {
     flex: 1;

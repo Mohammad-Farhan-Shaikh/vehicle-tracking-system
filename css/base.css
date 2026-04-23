@@ -62,6 +62,30 @@
   --shadow-lg: var(--shadow-lvl2);
 }
 
+/* Dark Theme Variables */
+body.dark-theme {
+  --uber-white: #121212;
+  --uber-black: #ffffff;
+  --uber-hover-gray: #2d2d2d;
+  --uber-hover-light: #1e1e1e;
+  --uber-chip-gray: #242424;
+  --uber-body-gray: #a0a0a0;
+  --uber-muted-gray: #666666;
+
+  --background-light: #121212;
+  --background-grey: #0a0a0a;
+  --border-color: #2d2d2d;
+  --surface-color: #1e1e1e;
+
+  --text-dark: #ffffff;
+  --text-light: #a0a0a0;
+  --text-muted: #666666;
+
+  --shadow-lvl1: rgba(0, 0, 0, 0.4) 0px 4px 16px 0px;
+  --shadow-lvl2: rgba(0, 0, 0, 0.5) 0px 4px 16px 0px;
+  --shadow-lvl3: rgba(0, 0, 0, 0.5) 0px 2px 8px 0px;
+}
+
 * {
   margin: 0;
   padding: 0;

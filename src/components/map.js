@@ -42,6 +42,34 @@ export function initializeMap(mapId, center, zoom) {
   return map;
 }
 
+const TILE_LAYERS = {
+  light: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+  dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+};
+
+let currentTileLayer;
+
+/**
+ * Switches the map tile layer based on the theme.
+ * @param {string} theme - 'light' or 'dark'
+ */
+export function setMapTheme(theme) {
+  if (!map) return;
+
+  if (currentTileLayer) {
+    map.removeLayer(currentTileLayer);
+  }
+
+  const url = TILE_LAYERS[theme] || TILE_LAYERS.light;
+  const attr = theme === 'dark' 
+    ? '© OpenStreetMap contributors © CARTO' 
+    : '© OpenStreetMap contributors';
+
+  currentTileLayer = L.tileLayer(url, {
+    attribution: attr,
+  }).addTo(map);
+}
+
 /**
  * Creates a custom SVG icon for a vehicle based on its status.
  * @param {string} status - Vehicle status.

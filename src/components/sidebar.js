@@ -89,11 +89,33 @@ export async function setupSidebar(map) {
       });
 
       updateSidebarView(true);
-      renderGeofenceList(state.geofenceGroups);
-      renderLandmarkList(state.landmarkGroups);
+      updateStatusCounts();
     } catch (error) {
       console.error("Data loading error:", error);
     }
+  };
+
+  /**
+   * Updates the real-time status counts in the filter buttons.
+   */
+  const updateStatusCounts = () => {
+    const counts = {
+      All: state.allVehicles.length,
+      Moving: 0,
+      Idle: 0,
+      Stopped: 0,
+    };
+
+    state.allVehicles.forEach((v) => {
+      if (counts.hasOwnProperty(v.status)) {
+        counts[v.status]++;
+      }
+    });
+
+    Object.keys(counts).forEach((status) => {
+      const el = document.getElementById(`count-${status.toLowerCase()}`);
+      if (el) el.textContent = counts[status];
+    });
   };
 
   /**
@@ -104,8 +126,8 @@ export async function setupSidebar(map) {
     const isFiltered = state.activeFilter !== "All";
 
     // We force the state (expand + check) if there's a search, a specific filter,
-    // or if the user explicitly clicked "All" (not initial load).
-    const forceState = hasQuery || isFiltered || !isInitial;
+    // or if it's the initial load.
+    const forceState = hasQuery || isFiltered || isInitial;
 
     // Toggle search icons
     if (elements.clearBtn)
@@ -392,7 +414,7 @@ export async function setupSidebar(map) {
       btn.addEventListener("click", () => {
         elements.filterBtns.forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        state.activeFilter = btn.textContent.trim();
+        state.activeFilter = btn.dataset.filter;
         updateSidebarView();
       });
     });
@@ -711,5 +733,8 @@ export async function setupSidebar(map) {
   setupEventListeners();
   await loadData();
 
-  return state;
+  return {
+    state,
+    updateStatusCounts
+  };
 }
