@@ -64,26 +64,28 @@
 
 /* Dark Theme Variables */
 body.dark-theme {
-  --uber-white: #121212;
+  --uber-white: #000000;
   --uber-black: #ffffff;
-  --uber-hover-gray: #2d2d2d;
-  --uber-hover-light: #1e1e1e;
-  --uber-chip-gray: #242424;
-  --uber-body-gray: #a0a0a0;
-  --uber-muted-gray: #666666;
+  --uber-hover-gray: #1f1f1f;
+  --uber-hover-light: #121212;
+  --uber-chip-gray: #2d2d2d;
+  --uber-body-gray: #e5e5e5;
+  --uber-muted-gray: #999999;
 
-  --background-light: #121212;
-  --background-grey: #0a0a0a;
+  --background-light: #000000;
+  --background-grey: #121212;
   --border-color: #2d2d2d;
-  --surface-color: #1e1e1e;
+  --surface-color: #121212;
 
   --text-dark: #ffffff;
-  --text-light: #a0a0a0;
-  --text-muted: #666666;
+  --text-light: #e5e5e5;
+  --text-muted: #999999;
 
-  --shadow-lvl1: rgba(0, 0, 0, 0.4) 0px 4px 16px 0px;
-  --shadow-lvl2: rgba(0, 0, 0, 0.5) 0px 4px 16px 0px;
-  --shadow-lvl3: rgba(0, 0, 0, 0.5) 0px 2px 8px 0px;
+  --shadow-lvl1: rgba(255, 255, 255, 0.05) 0px 4px 16px 0px;
+  --shadow-lvl2: rgba(255, 255, 255, 0.08) 0px 4px 16px 0px;
+  --shadow-lvl3: rgba(255, 255, 255, 0.08) 0px 2px 8px 0px;
+  
+  --primary-bg-light: #1a1a1a;
 }
 
 * {
@@ -110,7 +112,7 @@ body {
 input[type="checkbox"] {
   appearance: none;
   -webkit-appearance: none;
-  background-color: #fff;
+  background-color: var(--background-light);
   margin: 0;
   width: 18px;
   height: 18px;

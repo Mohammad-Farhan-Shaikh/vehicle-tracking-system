@@ -125,9 +125,8 @@ export async function setupSidebar(map) {
     const hasQuery = state.searchQuery.length > 0;
     const isFiltered = state.activeFilter !== "All";
 
-    // We force the state (expand + check) if there's a search, a specific filter,
-    // or if it's the initial load.
-    const forceState = hasQuery || isFiltered || isInitial;
+    // We force the state (expand + check) if there's a search or a specific filter.
+    const forceState = hasQuery || isFiltered;
 
     // Toggle search icons
     if (elements.clearBtn)

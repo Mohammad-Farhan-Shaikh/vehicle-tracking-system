@@ -60,10 +60,9 @@ export function setMapTheme(theme) {
     map.removeLayer(currentTileLayer);
   }
 
-  const url = TILE_LAYERS[theme] || TILE_LAYERS.light;
-  const attr = theme === 'dark' 
-    ? '© OpenStreetMap contributors © CARTO' 
-    : '© OpenStreetMap contributors';
+  // Always use light tiles as per user request ("normal rehne do")
+  const url = TILE_LAYERS.light;
+  const attr = '© OpenStreetMap contributors';
 
   currentTileLayer = L.tileLayer(url, {
     attribution: attr,

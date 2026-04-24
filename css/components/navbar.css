@@ -25,14 +25,14 @@
   align-items: center;
   gap: var(--spacing-sm);
   text-decoration: none;
-  color: var(--uber-black);
+  color: var(--text-dark);
 }
 
 .navbar-logo {
   width: 24px;
   height: 24px;
-  background-color: var(--uber-black);
-  color: var(--uber-white);
+  background-color: var(--text-dark);
+  color: var(--background-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,6 +45,7 @@
   font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.5px;
+  color: var(--text-light);
 }
 
 .main-nav {
@@ -95,7 +96,7 @@
   border-color: var(--uber-black);
   background-color: var(--uber-white);
   width: 320px;
-  box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.05);
 }
 
 .search-icon {
@@ -190,4 +191,3 @@ body.dark-theme .navbar {
   background-color: var(--surface-color);
   border-bottom-color: var(--border-color);
 }
-

@@ -78,7 +78,7 @@
 .sidebar-search input:focus {
     outline: none;
     border-color: var(--primary-color);
-    background-color: #fff;
+    background-color: var(--background-light);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
@@ -196,7 +196,7 @@ body.dark-theme .status-count {
 }
 
 .vehicle-group-header:hover {
-    background-color: var(--primary-bg-light);
+    background-color: var(--uber-hover-gray);
 }
 
 .master-section-header {
@@ -281,7 +281,7 @@ body.dark-theme .status-count {
 }
 
 .vehicle-item:hover {
-    background-color: var(--primary-bg-light);
+    background-color: var(--uber-hover-gray);
     color: var(--primary-color);
 }
 
